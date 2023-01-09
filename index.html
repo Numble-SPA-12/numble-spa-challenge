@@ -2,14 +2,19 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link href="main.css" rel="stylesheet" />
+    <script type="module" src="src/app.js" defer></script>
     <title>HPNY 2023</title>
   </head>
   <body>
-    <div id="app">
-      <h1 class="text-3xl underline">Hello world!</h1>
-    </div>
+    <nav class="nav">
+      <a href="/" class="nav_item" data-link>Home</a>
+      <a href="/posts" class="nav_item" data-link>Posts</a>
+      <a href="/settings" class="nav_item" data-link>Settings</a>
+    </nav>
+
+    <div id="root"></div>
   </body>
 </html>
