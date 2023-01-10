@@ -1,13 +1,11 @@
-import AbstractView from '@common/AbstractView';
+import Page from '@components/core/Page';
 
-class Post extends AbstractView {
-  constructor(params) {
-    super(params);
-    this.setTitle('Post');
+class Post extends Page {
+  setup() {
+    this.setTitle('Post Page');
   }
 
-  async render() {
-    console.log(this.params);
+  template() {
     return '<h1>This is Post Page</h1>';
   }
 }
