@@ -3,9 +3,9 @@ import Post from '@pages/Post';
 import Write from '@pages/Write';
 
 const routes = [
-  { path: '/', view: Dashboard },
-  { path: '/write', view: Write },
-  { path: '/:id', view: Post },
+  { path: '/', page: Dashboard },
+  { path: '/write', page: Write },
+  { path: '/:id', page: Post },
 ];
 
 const pathToRegex = (path) => {
@@ -27,7 +27,7 @@ const getParmas = (match) => {
   );
 };
 
-export const router = async () => {
+export const router = () => {
   const pageMatches = routes.map((route) => {
     return {
       route,
@@ -44,7 +44,10 @@ export const router = async () => {
     };
   }
 
-  const view = new match.route.view(getParmas(match));
+  new match.route.page(document.querySelector('#root'), {}, getParmas(match));
+};
 
-  document.querySelector('#root').innerHTML = await view.render();
+export const navigateTo = (url) => {
+  history.pushState(null, null, url);
+  router();
 };
