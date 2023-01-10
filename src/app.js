@@ -1,21 +1,22 @@
-import { router } from '@common/router.js';
+import { navigateTo, router } from '@common/router';
 
-const naviagteTo = (url) => {
-  history.pushState(null, null, url);
-  router();
-};
+class App {
+  constructor() {
+    window.addEventListener('popstate', () => {
+      router();
+    });
 
-window.addEventListener('popstate', () => {
-  router();
-});
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', (e) => {
+        if (e.target.matches('[data-link]')) {
+          e.preventDefault();
+          navigateTo(e.target.href);
+        }
+      });
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.addEventListener('click', (e) => {
-    if (e.target.matches('[data-link]')) {
-      e.preventDefault();
-      naviagteTo(e.target.href);
-    }
-  });
+      router();
+    });
+  }
+}
 
-  router();
-});
+new App();

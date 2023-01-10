@@ -1,13 +1,12 @@
-import AbstractView from '@common/AbstractView';
+import Page from '@components/core/Page';
 
-class Write extends AbstractView {
-  constructor(params) {
-    super(params);
-    this.setTitle('Write');
+class Write extends Page {
+  setup() {
+    this.setTitle('Write Page');
   }
 
-  async render() {
-    return `<h1>This is Write Page</h1>`;
+  template() {
+    return '<h1>This is Write Page</h1>';
   }
 }
 
