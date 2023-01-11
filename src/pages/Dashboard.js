@@ -1,36 +1,15 @@
 import Button from '@components/Button';
-import CardList from '@components/CardList';
 import Header from '@components/Header';
 import Page from '@components/core/Page';
+import PostList from '@components/PostList';
+import { getPostsAPI } from '@api/post';
 import { navigateTo } from '@common/router';
 
 export default class Dashboard extends Page {
   setup() {
     this.setTitle('Dashboard');
-    this.$state = {
-      cards: [
-        {
-          id: 1,
-          image: 'https://picsum.photos/200/300',
-          title: '제목',
-          description: '설명',
-        },
-
-        {
-          id: 2,
-          image: 'https://picsum.photos/200/300',
-          title: '제목',
-          description: '설명',
-        },
-
-        {
-          id: 3,
-          image: 'https://picsum.photos/200/300',
-          title: '제목',
-          description: '설명',
-        },
-      ],
-    };
+    this.$state = { posts: [] };
+    this.getPosts();
   }
 
   template() {
@@ -38,7 +17,7 @@ export default class Dashboard extends Page {
       <div class='w-full flex flex-col items-center'>
         <div class='w-main' data-component="header-container"></div>
         <div class='w-main' data-component="write-button-container"></div>
-        <div class='w-main  mt-4' data-component="card-list-container"></div>
+        <div class='w-main  mt-4' data-component="post-list-container"></div>
       </div>
     `;
   }
@@ -51,8 +30,8 @@ export default class Dashboard extends Page {
     const $writeButtonContainer = this.$target.querySelector(
       '[data-component="write-button-container"]'
     );
-    const $cardListContainer = this.$target.querySelector(
-      '[data-component="card-list-container"]'
+    const $postListContainer = this.$target.querySelector(
+      '[data-component="post-list-container"]'
     );
 
     new Header($headerContainer, {
@@ -66,12 +45,22 @@ export default class Dashboard extends Page {
         'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
     });
 
-    new CardList($cardListContainer, {
-      cards: this.$state.cards,
+    // 스켈레톤 UI를 보여준다
+    if (!this.$state.posts) {
+      return;
+    }
+
+    new PostList($postListContainer, {
+      posts: this.$state.posts,
     });
   }
 
   handleNavigateToWrite() {
     navigateTo('/write');
+  }
+
+  async getPosts() {
+    const posts = await getPostsAPI();
+    this.setState({ posts });
   }
 }
