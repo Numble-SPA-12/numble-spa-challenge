@@ -10,6 +10,9 @@ module.exports = {
       width: {
         main: '640px',
       },
+      maxWidth: {
+        main: '640px',
+      },
     },
   },
   plugins: [],
