@@ -4,7 +4,7 @@ export default class Button extends Component {
   template() {
     const { content, className } = this.$props;
     return `
-      <button class="button ${className}">
+      <button class="button select-none ${className}">
         ${content}
       </button>
     `;
