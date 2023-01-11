@@ -15,7 +15,7 @@ export default class Component {
     return '';
   }
   render() {
-    this.$target.innerHTML = this.template();
+    this.$target.insertAdjacentHTML('beforeend', this.template());
     this.mounted();
   }
   setEvent() {}
