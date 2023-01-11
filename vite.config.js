@@ -7,6 +7,7 @@ export default defineConfig({
       { find: '@pages', replacement: '/src/pages' },
       { find: '@common', replacement: '/src/common' },
       { find: '@assets', replacement: '/src/assets' },
+      { find: '@api', replacement: '/src/api' },
       { find: '@', replacement: '/src' },
     ],
   },
