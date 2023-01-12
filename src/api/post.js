@@ -13,8 +13,8 @@ const getPostsAPI = async () => {
 const getPostAPI = async (id) => {
   try {
     const { data } = await requestGET(`post/${id}`);
-    const { post } = data;
-    return post;
+    const { post, comments } = data;
+    return { post, comments };
   } catch (error) {
     console.error(error);
   }
