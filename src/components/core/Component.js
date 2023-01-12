@@ -1,16 +1,22 @@
 export default class Component {
   $target;
-  $props;
-  $state;
-  constructor($target, $props) {
+  props;
+  state;
+
+  constructor($target, props) {
     this.$target = $target;
-    this.$props = $props;
+    this.props = props;
     this.setup();
     this.render();
     this.setEvent();
   }
+
   setup() {}
+
+  setEvent() {}
+
   mounted() {}
+
   template() {
     return '';
   }
@@ -18,11 +24,12 @@ export default class Component {
     this.$target.innerHTML = this.template();
     this.mounted();
   }
-  setEvent() {}
+
   setState(newState) {
-    this.$state = { ...this.$state, ...newState };
+    this.state = { ...this.state, ...newState };
     this.render();
   }
+
   addEvent(eventType, selector, callback) {
     const children = [...this.$target.querySelectorAll(selector)];
 

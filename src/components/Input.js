@@ -2,7 +2,7 @@ import Component from '@components/core/Component.js';
 
 export default class Input extends Component {
   template() {
-    const { placeholder = '', name, label, value, className } = this.$props;
+    const { placeholder = '', name, label, value, className } = this.props;
     return `
       <div class="flex flex-col gap-3 ${className}">
         <label for="${name}" class="${
@@ -14,7 +14,7 @@ export default class Input extends Component {
   }
 
   setEvent() {
-    const { onChange, name } = this.$props;
+    const { onChange, name } = this.props;
     this.addEvent('change', `.${name}`, ({ target }) => {
       onChange(target.value);
     });

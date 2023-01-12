@@ -2,7 +2,7 @@ import Component from '@components/core/Component.js';
 
 export default class Button extends Component {
   template() {
-    const { content, className } = this.$props;
+    const { content, className } = this.props;
     return `
       <button class="button select-none ${className}">
         ${content}
@@ -11,7 +11,7 @@ export default class Button extends Component {
   }
 
   setEvent() {
-    const { onClick } = this.$props;
+    const { onClick } = this.props;
     this.addEvent('click', '.button', ({ target }) => {
       handleClick();
     });

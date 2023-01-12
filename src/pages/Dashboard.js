@@ -8,7 +8,7 @@ import { navigateTo } from '@common/router';
 export default class Dashboard extends Page {
   setup() {
     this.setTitle('Dashboard');
-    this.$state = { posts: [] };
+    this.state = { posts: [] };
     this.getPosts();
   }
 
@@ -43,13 +43,12 @@ export default class Dashboard extends Page {
         'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
     });
 
-    // 스켈레톤 UI를 보여준다
-    if (!this.$state.posts) {
+    if (!this.state.posts) {
       return;
     }
 
     new PostList($postListContainer, {
-      posts: this.$state.posts,
+      posts: this.state.posts,
     });
   }
 

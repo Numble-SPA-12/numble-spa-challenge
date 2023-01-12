@@ -6,9 +6,7 @@ import sendIcon from '@assets/send.svg';
 
 export default class CommentAppender extends Component {
   setup() {
-    this.$state = {
-      content: '',
-    };
+    this.state = { content: '' };
   }
 
   template() {
@@ -32,7 +30,7 @@ export default class CommentAppender extends Component {
 
     new Input($commentInput, {
       name: 'comment',
-      value: this.$state.content,
+      value: this.state.content,
       onChange: handleCommentInput.bind(this),
     });
 
@@ -49,8 +47,8 @@ export default class CommentAppender extends Component {
   }
 
   async handleSubmit() {
-    const { postId, onCommentAppended } = this.$props;
-    const { content } = this.$state;
+    const { postId, onCommentAppended } = this.props;
+    const { content } = this.state;
 
     if (!content) {
       return;

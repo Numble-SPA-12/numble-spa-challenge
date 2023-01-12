@@ -12,12 +12,12 @@ import trashcanIcon from '@assets/trashcan.svg';
 
 class Post extends Page {
   setup() {
-    this.$state = { post: {}, comments: [] };
+    this.state = { post: {}, comments: [] };
     this.getPost();
   }
 
   template() {
-    const { image, createdAt, title, content } = this.$state.post;
+    const { image, createdAt, title, content } = this.state.post;
     this.setTitle(`${!!title ? title + '-' : ''} HPNY 2023`);
 
     return `
@@ -82,17 +82,17 @@ class Post extends Page {
     });
 
     new CommentAppender($commentAppender, {
-      postId: this.$props.params.id,
+      postId: this.props.params.id,
       onCommentAppended: handleCommentAppended.bind(this),
     });
 
     new CommentList($commentsContainer, {
-      comments: this.$state.comments,
+      comments: this.state.comments,
     });
   }
 
   async getPost() {
-    const { id } = this.$props.params;
+    const { id } = this.props.params;
     const { post, comments } = await getPostAPI(id);
     this.setState({ post });
     this.setState({
@@ -104,12 +104,12 @@ class Post extends Page {
 
   handleCommentAppended(comment) {
     this.setState({
-      comments: [comment, ...this.$state.comments],
+      comments: [comment, ...this.state.comments],
     });
   }
 
   async handleDeletePost() {
-    const { id } = this.$props.params;
+    const { id } = this.props.params;
     const code = await deletePostAPI(id);
     navigateTo('/');
   }

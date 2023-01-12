@@ -4,7 +4,7 @@ import xIcon from '@assets/x.svg';
 
 export default class CommentList extends Component {
   template() {
-    const { comments } = this.$props;
+    const { comments } = this.props;
     return `
       <div class='comment-list flex flex-col gap-3' data-component="comment-list">
         ${comments

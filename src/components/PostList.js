@@ -4,7 +4,7 @@ import { navigateTo } from '@common/router';
 
 export default class PostList extends Component {
   template() {
-    const { posts } = this.$props;
+    const { posts } = this.props;
     const cardStyles =
       'cursor-pointer w-full flex  flex-row gap-4 ease-in duration-100 hover:translate-x-2 select-none';
 

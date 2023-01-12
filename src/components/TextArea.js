@@ -2,7 +2,7 @@ import Component from '@components/core/Component.js';
 
 export default class TextArea extends Component {
   template() {
-    const { label, placeholder, name, value } = this.$props;
+    const { label, placeholder, name, value } = this.props;
     return `
       <div class="flex flex-col gap-3">
         <label for="${name}" class="${
@@ -14,7 +14,7 @@ export default class TextArea extends Component {
   }
 
   setEvent() {
-    const { onChange, name } = this.$props;
+    const { onChange, name } = this.props;
     this.addEvent('change', `.${name}`, ({ target }) => {
       onChange(document.getElementById(name).value);
     });

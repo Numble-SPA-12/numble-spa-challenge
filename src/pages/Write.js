@@ -11,11 +11,11 @@ import { navigateTo } from '@common/router';
 class Write extends Page {
   setup() {
     this.setTitle('Write Page');
-    this.$state = { title: '', content: '', image: '' };
+    this.state = { title: '', content: '', image: '' };
   }
 
   template() {
-    const { image } = this.$state;
+    const { image } = this.state;
     return `
       <div class='w-full flex flex-col items-center gap-5'>
         <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
@@ -65,7 +65,7 @@ class Write extends Page {
       label: '제목',
       placeholder: '글 제목을 입력해주세요',
       name: 'title',
-      value: this.$state.title,
+      value: this.state.title,
       onChange: handleTitleChange.bind(this),
     });
 
@@ -73,7 +73,7 @@ class Write extends Page {
       label: '내용',
       placeholder: '글 내용을 입력해주세요',
       name: 'content',
-      value: this.$state.content,
+      value: this.state.content,
       onChange: handleContentChange.bind(this),
     });
 
@@ -99,7 +99,7 @@ class Write extends Page {
   }
 
   async createPost() {
-    const post = await createPostAPI(this.$state);
+    const post = await createPostAPI(this.state);
     if (!post) return;
     navigateTo('/');
   }
