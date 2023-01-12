@@ -5,26 +5,33 @@ import backIcon from '@assets/back.svg';
 
 export default class Header extends Component {
   template() {
-    const { className } = this.$props;
     return `
-      <header class="header ${className}"></header>
+      <div data-component="header-back-button"></div>
+      <div data-component="header-title"></div>
     `;
   }
 
   mounted() {
     const { handleNavigateToBack } = this;
-    const $header = this.$target.querySelector('.header');
+
+    const $backButton = this.$target.querySelector(
+      '[data-component="header-back-button"]'
+    );
+    const $title = this.$target.querySelector(
+      '[data-component="header-title"]'
+    );
+
     const isDashboard = location.pathname === '/';
 
-    new Button($header, {
+    new Button($backButton, {
       content: `<img src=${backIcon} alt="some file" height='20' width='20' />`,
-      onAction: handleNavigateToBack.bind(this),
+      onClick: handleNavigateToBack.bind(this),
       className: `p-2 hover:bg-slate-100 ease-in duration-150 rounded-md ${
         isDashboard ? 'invisible' : ''
       }`,
     });
 
-    new Text($header, {
+    new Text($title, {
       content: 'HPNY 2023',
       className: 'font-light text-lg select-none',
     });

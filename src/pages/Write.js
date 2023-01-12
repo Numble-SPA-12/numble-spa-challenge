@@ -18,7 +18,7 @@ class Write extends Page {
     const { image } = this.$state;
     return `
       <div class='w-full flex flex-col items-center gap-5'>
-        <div class='w-main' data-component="header-container"></div>
+        <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
         <div class='write-image-container w-main flex align-cetner justify-center  
           border rounded-lg h-80 hover:bg-slate-100 ease-in duration-150 cursor-pointer'>
           <img src="${image}" alt="image" class="${
@@ -79,7 +79,7 @@ class Write extends Page {
 
     new Button($buttonContainer, {
       content: '등록하기',
-      onAction: createPost.bind(this),
+      onClick: createPost.bind(this),
       className:
         'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
     });
