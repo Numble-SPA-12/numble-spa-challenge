@@ -6,7 +6,15 @@ class Post extends Page {
   }
 
   template() {
-    return '<h1>This is Post Page</h1>';
+    return `
+      <div class='w-full flex flex-col items-center gap-5'>
+        <div class='w-main' data-component="header-container"></div>
+        
+        <div class='w-main' data-component="input-title"></div>
+        <div class='w-main' data-component="input-content"></div>
+        <div class='w-main' data-component="button-container"></div>
+      </div>
+    `;
   }
 }
 
