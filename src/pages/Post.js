@@ -46,7 +46,7 @@ class Post extends Page {
   }
 
   mounted() {
-    const { handleNavigateToEdit, handleCommentAppended, handleDeletePost } =
+    const { handleNavigateToEdit, handleCommentAppended, handlePostDelete } =
       this;
 
     const $headerContainer = this.$target.querySelector(
@@ -77,7 +77,7 @@ class Post extends Page {
 
     new Button($removeButton, {
       content: `<img src=${trashcanIcon} alt="some file" height='20' width='20' />`,
-      onClick: handleDeletePost.bind(this),
+      onClick: handlePostDelete.bind(this),
       className: `p-2 bg-slate-100 hover:bg-slate-200 ease-in duration-150 rounded-md`,
     });
 
@@ -88,14 +88,15 @@ class Post extends Page {
 
     new CommentList($commentsContainer, {
       comments: this.state.comments,
+      handleCommentDelete: this.handleCommentDelete.bind(this),
     });
   }
 
   async getPost() {
     const { id } = this.props.params;
     const { post, comments } = await getPostAPI(id);
-    this.setState({ post });
     this.setState({
+      post,
       comments: comments.sort((a, b) => b.commentId - a.commentId),
     });
   }
@@ -108,10 +109,18 @@ class Post extends Page {
     });
   }
 
-  async handleDeletePost() {
+  async handlePostDelete() {
     const { id } = this.props.params;
     const code = await deletePostAPI(id);
     navigateTo('/');
+  }
+
+  handleCommentDelete(commentId) {
+    this.setState({
+      comments: this.state.comments.filter(
+        (comment) => comment.commentId !== commentId
+      ),
+    });
   }
 }
 
