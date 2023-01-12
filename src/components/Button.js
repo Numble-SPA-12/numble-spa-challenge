@@ -11,9 +11,13 @@ export default class Button extends Component {
   }
 
   setEvent() {
-    const { onAction } = this.$props;
+    const { onClick } = this.$props;
     this.addEvent('click', '.button', ({ target }) => {
-      onAction();
+      handleClick();
     });
+
+    function handleClick() {
+      onClick();
+    }
   }
 }

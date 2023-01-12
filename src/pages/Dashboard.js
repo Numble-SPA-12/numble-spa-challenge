@@ -15,7 +15,7 @@ export default class Dashboard extends Page {
   template() {
     return `
       <div class='w-full flex flex-col items-center'>
-        <div class='w-main' data-component="header-container"></div>
+        <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
         <div class='w-main' data-component="write-button-container"></div>
         <div class='w-main  mt-4' data-component="post-list-container"></div>
       </div>
@@ -34,13 +34,11 @@ export default class Dashboard extends Page {
       '[data-component="post-list-container"]'
     );
 
-    new Header($headerContainer, {
-      className: 'h-16 flex justify-between items-center',
-    });
+    new Header($headerContainer, {});
 
     new Button($writeButtonContainer, {
       content: '새 글 작성하기',
-      onAction: handleNavigateToWrite.bind(this),
+      onClick: handleNavigateToWrite.bind(this),
       className:
         'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
     });
