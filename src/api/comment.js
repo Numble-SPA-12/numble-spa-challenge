@@ -1,6 +1,8 @@
+import { requestDELETE, requestPOST } from './index';
+
 const createCommentAPI = async (postId, comment) => {
   try {
-    const { data } = await post(`comment/${postId}`, comment);
+    const { data } = await requestPOST(`comment/${postId}`, comment);
     return data;
   } catch (error) {
     console.error(error);
@@ -9,9 +11,11 @@ const createCommentAPI = async (postId, comment) => {
 
 const deleteCommentAPI = async (id) => {
   try {
-    const { code } = await remove(`comment/${id}`);
+    const { code } = await requestDELETE(`comment/${id}`);
     return code;
   } catch (error) {
     console.error(error);
   }
 };
+
+export { createCommentAPI, deleteCommentAPI };
