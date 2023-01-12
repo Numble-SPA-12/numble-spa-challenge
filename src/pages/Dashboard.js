@@ -58,6 +58,7 @@ export default class Dashboard extends Page {
 
   async getPosts() {
     const posts = await getPostsAPI();
+    console.log(posts);
     this.setState({ posts: posts.sort((a, b) => b.postId - a.postId) });
   }
 }

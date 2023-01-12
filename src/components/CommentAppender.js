@@ -50,12 +50,10 @@ export default class CommentAppender extends Component {
     const { postId, onCommentAppended } = this.props;
     const { content } = this.state;
 
-    if (!content) {
-      return;
-    }
+    if (!content) return;
 
-    const newComment = await createCommentAPI(postId, { content });
-    onCommentAppended(newComment);
+    const { commentId, ...rest } = await createCommentAPI(postId, { content });
+    onCommentAppended({ commentId: String(commentId), ...rest });
     this.setState({ comment: '' });
   }
 }
