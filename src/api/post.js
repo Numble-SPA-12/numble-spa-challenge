@@ -1,8 +1,8 @@
-import { get, patch, post, remove } from './index';
+import { requestDELETE, requestGET, requestPATCH, requestPOST } from './index';
 
 const getPostsAPI = async () => {
   try {
-    const { data } = await get('posts');
+    const { data } = await requestGET('posts');
     const { posts } = data;
     return posts;
   } catch (error) {
@@ -12,7 +12,7 @@ const getPostsAPI = async () => {
 
 const getPostAPI = async (id) => {
   try {
-    const { data } = await get(`posts/${id}`);
+    const { data } = await requestGET(`post/${id}`);
     const { post } = data;
     return post;
   } catch (error) {
@@ -20,9 +20,9 @@ const getPostAPI = async (id) => {
   }
 };
 
-const createPostAPI = async (post) => {
+const createPostAPI = async (postInfo) => {
   try {
-    const { data } = await post('posts', post);
+    const { data } = await requestPOST('post', postInfo);
     const { post } = data;
     return post;
   } catch (error) {
@@ -30,9 +30,9 @@ const createPostAPI = async (post) => {
   }
 };
 
-const updatePostAPI = async (id, post) => {
+const updatePostAPI = async (id, postInfo) => {
   try {
-    const { data } = await patch(`posts/${id}`, post);
+    const { data } = await requestPATCH(`post/${id}`, postInfo);
     const { post } = data;
     return post;
   } catch (error) {
@@ -42,7 +42,7 @@ const updatePostAPI = async (id, post) => {
 
 const deletePostAPI = async (id) => {
   try {
-    const { code } = await remove(`posts/${id}`);
+    const { code } = await requestDELETE(`post/${id}`);
     return code;
   } catch (error) {
     console.error(error);
