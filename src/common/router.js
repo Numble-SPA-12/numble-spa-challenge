@@ -44,7 +44,9 @@ export const router = () => {
     };
   }
 
-  new match.route.page(document.querySelector('#root'), {}, getParmas(match));
+  new match.route.page(document.querySelector('#root'), {
+    params: getParmas(match),
+  });
 };
 
 export const navigateTo = (url) => {
