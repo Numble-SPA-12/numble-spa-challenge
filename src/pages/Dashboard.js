@@ -12,6 +12,16 @@ export default class Dashboard extends Page {
     this.getPosts();
   }
 
+  async getPosts() {
+    const posts = await getPostsAPI();
+    console.log(posts);
+    this.setState({ posts: posts.sort((a, b) => b.postId - a.postId) });
+  }
+
+  handleNavigateToWrite() {
+    navigateTo('/write');
+  }
+
   template() {
     return `
       <div class='w-full flex flex-col items-center'>
@@ -23,42 +33,29 @@ export default class Dashboard extends Page {
   }
 
   mounted() {
-    const { handleNavigateToWrite } = this;
-    const $headerContainer = this.$target.querySelector(
-      '[data-component="header-container"]'
-    );
-    const $writeButtonContainer = this.$target.querySelector(
-      '[data-component="write-button-container"]'
-    );
-    const $postListContainer = this.$target.querySelector(
-      '[data-component="post-list-container"]'
-    );
+    const { $target, handleNavigateToWrite } = this;
 
-    new Header($headerContainer, {});
+    new Header($target.querySelector('[data-component="header-container"]'));
 
-    new Button($writeButtonContainer, {
-      content: '새 글 작성하기',
-      onClick: handleNavigateToWrite.bind(this),
-      className:
-        'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
-    });
+    new Button(
+      $target.querySelector('[data-component="write-button-container"]'),
+      {
+        content: '새 글 작성하기',
+        onClick: handleNavigateToWrite.bind(this),
+        className:
+          'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
+      }
+    );
 
     if (!this.state.posts) {
       return;
     }
 
-    new PostList($postListContainer, {
-      posts: this.state.posts,
-    });
-  }
-
-  handleNavigateToWrite() {
-    navigateTo('/write');
-  }
-
-  async getPosts() {
-    const posts = await getPostsAPI();
-    console.log(posts);
-    this.setState({ posts: posts.sort((a, b) => b.postId - a.postId) });
+    new PostList(
+      $target.querySelector('[data-component="post-list-container"]'),
+      {
+        posts: this.state.posts,
+      }
+    );
   }
 }
