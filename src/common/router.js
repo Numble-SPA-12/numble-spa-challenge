@@ -5,6 +5,7 @@ import Write from '@pages/Write';
 const routes = [
   { path: '/', page: Dashboard },
   { path: '/write', page: Write },
+  { path: '/:id/edit', page: Write },
   { path: '/:id', page: Post },
 ];
 
@@ -27,7 +28,7 @@ const getParmas = (match) => {
   );
 };
 
-export const router = () => {
+export const router = (data) => {
   const pageMatches = routes.map((route) => {
     return {
       route,
@@ -37,6 +38,7 @@ export const router = () => {
 
   let match = pageMatches.find((pageMatch) => pageMatch.result !== null);
 
+  console.log('🚀 ~ file: router.js:40 ~ router ~ pageMatches', match);
   if (!match) {
     match = {
       route: routes[0],
@@ -46,10 +48,11 @@ export const router = () => {
 
   new match.route.page(document.querySelector('#root'), {
     params: getParmas(match),
+    data,
   });
 };
 
-export const navigateTo = (url) => {
+export const navigateTo = (url, data) => {
   history.pushState(null, null, url);
-  router();
+  router(data);
 };
