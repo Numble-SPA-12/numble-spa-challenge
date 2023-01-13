@@ -24,11 +24,11 @@ class Write extends Page {
   template() {
     return `
       <div class='w-full flex flex-col items-center gap-5'>
-        <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
-        <div class='w-main' data-component="input-image"></div>
-        <div class='w-main' data-component="input-title"></div>
-        <div class='w-main' data-component="input-content"></div>
-        <div class='w-main' data-component="button-container"></div>
+        <div class='max-w-main w-full px-2 h-16 flex justify-between items-center' data-component="header-container"></div>
+        <div class='max-w-main w-full px-3' data-component="input-image"></div>
+        <div class='max-w-main w-full px-3' data-component="input-title"></div>
+        <div class='max-w-main w-full px-3' data-component="input-content"></div>
+        <div class='max-w-main w-full px-2' data-component="button-container"></div>
       </div>
     `;
   }
