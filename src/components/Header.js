@@ -2,6 +2,7 @@ import Button from '@components/Button';
 import Component from '@components/core/Component.js';
 import Text from '@components/Text';
 import backIcon from '@assets/back.svg';
+import { navigateTo } from '@common/router';
 
 export default class Header extends Component {
   template() {
@@ -38,6 +39,6 @@ export default class Header extends Component {
   }
 
   handleNavigateToBack() {
-    history.back();
+    navigateTo('/');
   }
 }

@@ -13,7 +13,7 @@ export default class CommentAppender extends Component {
     return `
       <div class="comment-appender w-full flex flex-row items-center gap-3">
         <div class="grow" data-component="comment-input"></div>
-        <div class="" data-component="comment-submit-button"></div>
+        <div class="" data-component="comment-submit-button" title="댓글 작성"></div>
       </div>
     `;
   }

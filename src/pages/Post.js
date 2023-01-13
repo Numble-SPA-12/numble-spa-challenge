@@ -16,6 +16,42 @@ class Post extends Page {
     this.getPost();
   }
 
+  async getPost() {
+    const { id } = this.props.params;
+    const { post, comments } = await getPostAPI(id);
+    this.setState({
+      post,
+      comments: comments.sort((a, b) => b.commentId - a.commentId),
+    });
+  }
+
+  handleNavigateToEdit() {
+    const { id } = this.props.params;
+    const { title, content, image } = this.state.post;
+    navigateTo(`${id}/edit`, { id, title, content, image });
+  }
+
+  async handlePostDelete() {
+    const { id } = this.props.params;
+    const code = await deletePostAPI(id);
+
+    if (code === 200) navigateTo('/');
+  }
+
+  handleCommentAppended(comment) {
+    this.setState({
+      comments: [comment, ...this.state.comments],
+    });
+  }
+
+  handleCommentDelete(commentId) {
+    this.setState({
+      comments: this.state.comments.filter(
+        (comment) => comment.commentId !== commentId
+      ),
+    });
+  }
+
   template() {
     const { image, createdAt, title, content } = this.state.post;
     this.setTitle(`${!!title ? title + '-' : ''} HPNY 2023`);
@@ -31,8 +67,8 @@ class Post extends Page {
           <h1 class="text-2xl font-bold">${title}</h1>
           <p class="text-gray-600">${content}</p>
           <div class="flex justify-end gap-2" >
-            <div data-component="edit-button"></div>
-            <div data-component="remove-button"></div>
+            <div data-component="edit-button" title="게시글 편집"></div>
+            <div data-component="remove-button" title="게시글 삭제"></div>
           </div>
         </div>
 
@@ -46,81 +82,45 @@ class Post extends Page {
   }
 
   mounted() {
-    const { handleNavigateToEdit, handleCommentAppended, handlePostDelete } =
-      this;
+    const {
+      $target,
+      props,
+      state,
+      handleNavigateToEdit,
+      handleCommentAppended,
+      handleCommentDelete,
+      handlePostDelete,
+    } = this;
 
-    const $headerContainer = this.$target.querySelector(
-      '[data-component="header-container"]'
-    );
-    const $editButton = this.$target.querySelector(
-      '[data-component="edit-button"]'
-    );
-    const $removeButton = this.$target.querySelector(
-      '[data-component="remove-button"]'
-    );
-    const $commentAppender = this.$target.querySelector(
-      '[data-component="comment-appender-container"]'
-    );
-    const $commentsContainer = this.$target.querySelector(
-      '[data-component="comments-container"]'
-    );
+    new Header($target.querySelector('[data-component="header-container"]'));
 
-    new Header($headerContainer, {
-      className: 'h-16 flex justify-between items-center',
-    });
-
-    new Button($editButton, {
+    new Button($target.querySelector('[data-component="edit-button"]'), {
       content: `<img src=${editIcon} alt="some file" height='20' width='20' />`,
       onClick: handleNavigateToEdit.bind(this),
       className: `p-2 bg-slate-100 hover:bg-slate-200 ease-in duration-150 rounded-md`,
     });
 
-    new Button($removeButton, {
+    new Button($target.querySelector('[data-component="remove-button"]'), {
       content: `<img src=${trashcanIcon} alt="some file" height='20' width='20' />`,
       onClick: handlePostDelete.bind(this),
       className: `p-2 bg-slate-100 hover:bg-slate-200 ease-in duration-150 rounded-md`,
     });
 
-    new CommentAppender($commentAppender, {
-      postId: this.props.params.id,
-      onCommentAppended: handleCommentAppended.bind(this),
-    });
+    new CommentAppender(
+      $target.querySelector('[data-component="comment-appender-container"]'),
+      {
+        postId: props.params.id,
+        onCommentAppended: handleCommentAppended.bind(this),
+      }
+    );
 
-    new CommentList($commentsContainer, {
-      comments: this.state.comments,
-      handleCommentDelete: this.handleCommentDelete.bind(this),
-    });
-  }
-
-  async getPost() {
-    const { id } = this.props.params;
-    const { post, comments } = await getPostAPI(id);
-    this.setState({
-      post,
-      comments: comments.sort((a, b) => b.commentId - a.commentId),
-    });
-  }
-
-  handleNavigateToEdit() {}
-
-  handleCommentAppended(comment) {
-    this.setState({
-      comments: [comment, ...this.state.comments],
-    });
-  }
-
-  async handlePostDelete() {
-    const { id } = this.props.params;
-    const code = await deletePostAPI(id);
-    navigateTo('/');
-  }
-
-  handleCommentDelete(commentId) {
-    this.setState({
-      comments: this.state.comments.filter(
-        (comment) => comment.commentId !== commentId
-      ),
-    });
+    new CommentList(
+      $target.querySelector('[data-component="comments-container"]'),
+      {
+        comments: state.comments,
+        handleCommentDelete: handleCommentDelete.bind(this),
+      }
+    );
   }
 }
 
