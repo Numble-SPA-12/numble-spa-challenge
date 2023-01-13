@@ -21,6 +21,32 @@ class Write extends Page {
     };
   }
 
+  handleTitleChange(title) {
+    this.setState({ title });
+  }
+
+  handleContentChange(content) {
+    this.setState({ content });
+  }
+
+  async handleRandomImageSelect() {
+    const url = await getRandomPhotoAPI();
+    this.setState({ image: url });
+  }
+
+  async handlePostCreate() {
+    const post = await createPostAPI(this.state);
+    if (!post) return;
+    navigateTo('/');
+  }
+
+  async handlePostUpdate() {
+    const { id } = this.props.data;
+    const post = await updatePostAPI(id, this.state);
+    if (!post) return;
+    navigateTo(`/${id}`);
+  }
+
   template() {
     return `
       <div class='w-full flex flex-col items-center gap-5'>
@@ -81,32 +107,6 @@ class Write extends Page {
       className:
         'w-full bg-slate-100 hover:bg-slate-200  py-4 px-4 ease-in duration-150 rounded-lg',
     });
-  }
-
-  handleTitleChange(title) {
-    this.setState({ title });
-  }
-
-  handleContentChange(content) {
-    this.setState({ content });
-  }
-
-  async handleRandomImageSelect() {
-    const url = await getRandomPhotoAPI();
-    this.setState({ image: url });
-  }
-
-  async handlePostCreate() {
-    const post = await createPostAPI(this.state);
-    if (!post) return;
-    navigateTo('/');
-  }
-
-  async handlePostUpdate() {
-    const { id } = this.props.data;
-    const post = await updatePostAPI(id, this.state);
-    if (!post) return;
-    navigateTo(`/${id}`);
   }
 }
 
