@@ -25,9 +25,9 @@ export default class Dashboard extends Page {
   template() {
     return `
       <div class='w-full flex flex-col items-center'>
-        <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
-        <div class='w-main' data-component="write-button-container"></div>
-        <div class='w-main  mt-4' data-component="post-list-container"></div>
+        <div class='max-w-main px-2  w-full h-16 flex justify-between items-center' data-component="header-container"></div>
+        <div class='max-w-main px-2 w-full' data-component="write-button-container"></div>
+        <div class='max-w-main px-2  w-full mt-4' data-component="post-list-container"></div>
       </div>
     `;
   }

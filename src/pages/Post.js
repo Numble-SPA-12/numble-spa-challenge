@@ -57,25 +57,31 @@ class Post extends Page {
     this.setTitle(`${!!title ? title + '-' : ''} HPNY 2023`);
 
     return `
-      <div class='w-full flex flex-col items-center gap-5'>
-        <div class='w-main h-16 flex justify-between items-center' data-component="header-container"></div>
-        <div class='w-main' data-component="image-container">
-          <img src="${image}" alt="post image" class="w-full" />
-        </div>
-        <div class='w-main flex flex-col gap-3' data-component="article-container">
-          <p class="text-gray-600 text-sm">${convertDate(createdAt)}</p>
-          <h1 class="text-2xl font-bold">${title}</h1>
-          <p class="text-gray-600">${content}</p>
-          <div class="flex justify-end gap-2" >
-            <div data-component="edit-button" title="게시글 편집"></div>
-            <div data-component="remove-button" title="게시글 삭제"></div>
+      <div class='w-full flex flex-col items-center'>
+        <div class='max-w-main w-full px-2 h-16 flex justify-between items-center' data-component="header-container"></div>
+        <div class="max-w-main w-full flex flex-col gap-4">
+          <div class='w-full' data-component="image-container">
+            <img src="${image}" alt="post image" class="w-full" />
+          </div>
+          <div class='w-full px-3 flex flex-col gap-2' data-component="article-container">
+            <div class="flex flex-col gap-2 mb-10">
+              <p class="text-gray-600 break-all text-xs">${convertDate(
+                createdAt
+              )}</p>
+              <h1 class="text-xl break-all font-bold">${title}</h1>
+              <p class="text-gray-600 break-all">${content}</p>
+            </div>
+            <div class="flex justify-end gap-2" >
+              <div data-component="edit-button" title="게시글 편집"></div>
+              <div data-component="remove-button" title="게시글 삭제"></div>
+            </div>
           </div>
         </div>
 
-        <div class='flex flex-col gap-4 my-5'>
-          <div class='text-md font-bold text-gray-600'>댓글</div>
-          <div class='w-main' data-component="comment-appender-container"></div>
-          <div class='w-main' data-component="comments-container"></div>
+        <div class='max-w-main w-full px-3 flex flex-col gap-4 my-5'>
+          <div class='w-full text-md font-bold text-gray-600'>댓글</div>
+          <div class='w-full' data-component="comment-appender-container"></div>
+          <div class='w-full' data-component="comments-container"></div>
         </div>
       </div>
     `;

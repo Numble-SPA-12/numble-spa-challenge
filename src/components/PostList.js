@@ -6,23 +6,23 @@ export default class PostList extends Component {
   template() {
     const { posts } = this.props;
     const cardStyles =
-      'cursor-pointer w-full flex  flex-row gap-4 ease-in duration-100 hover:translate-x-2 select-none';
+      'cursor-pointer flex w-full flex-row gap-3 ease-in duration-100 hover:translate-x-2 select-none';
 
     return `
-      <div class='card-list flex flex-col gap-5' data-component="post-list">
+      <div class='w-full mb-5 card-list flex flex-col gap-3' data-component="post-list">
         ${posts
           .map(
             ({ image, title, content, createdAt, postId }) => `
               <div class="card ${cardStyles}" data-card-id="${postId}">
-                <div class="bg-origin-border hover:bg-origin-padding shrink-0">
-                  <img src="${image}" alt="${title}" class="rounded-lg object-cover h-32 w-32" />
+                <div class="bg-origin-border flex-none hover:bg-origin-padding">
+                  <img src="${image}" alt="${title}" class="rounded-lg object-cover h-24 w-24" />
                 </div>
-                <div class="flex flex-col gap-2 p-2">
+                <div class="grow w-full min-w-0 flex flex-col gap-1 p-1">
                   <div class="text-xs text-gray-600 line-clamp-2">${convertDate(
                     createdAt
                   )}</div>  
-                  <div class="text-lg font-bold line-clamp-1">${title}</div>
-                  <div class="text-sm text-gray-600 line-clamp-2">${content}</div>
+                  <div class="text-md break-all font-bold line-clamp-1">${title}</div>
+                  <div class="text-sm break-all text-gray-600 line-clamp-2">${content}</div>
                 </div>
               </div>
             `
