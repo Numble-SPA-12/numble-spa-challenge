@@ -38,7 +38,6 @@ export const router = (data) => {
 
   let match = pageMatches.find((pageMatch) => pageMatch.result !== null);
 
-  console.log('🚀 ~ file: router.js:40 ~ router ~ pageMatches', match);
   if (!match) {
     match = {
       route: routes[0],

@@ -5,6 +5,20 @@ import backIcon from '@assets/back.svg';
 import { navigateTo } from '@common/router';
 
 export default class Header extends Component {
+  handleNavigateToBack() {
+    history.back();
+  }
+
+  handleNavigateToDashboard() {
+    navigateTo('/');
+  }
+
+  setEvent() {
+    this.addEvent('click', '[data-component="header-title"]', ({ target }) => {
+      this.handleNavigateToDashboard();
+    });
+  }
+
   template() {
     return `
       <div data-component="header-back-button"></div>
@@ -34,11 +48,7 @@ export default class Header extends Component {
 
     new Text($title, {
       content: 'HPNY 2023',
-      className: 'font-light text-lg select-none',
+      className: 'font-light text-lg select-none hover:underline',
     });
-  }
-
-  handleNavigateToBack() {
-    navigateTo('/');
   }
 }
