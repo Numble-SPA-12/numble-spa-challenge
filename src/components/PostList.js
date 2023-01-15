@@ -17,7 +17,6 @@ export default class PostList extends Component {
     posts.forEach((post) => {
       const $component = document.createElement('div');
       $postList.appendChild($component);
-
       new Post($component, {
         ...post,
       });
