@@ -19,31 +19,27 @@ export default class CommentAppender extends Component {
   }
 
   mounted() {
-    const { handleCommentInput, handleSubmit } = this;
+    const { $target, handleCommentInput, handleSubmit } = this;
 
-    const $commentInput = this.$target.querySelector(
-      '[data-component="comment-input"]'
-    );
-    const $submitButton = this.$target.querySelector(
-      '[data-component="comment-submit-button"]'
-    );
-
-    new Input($commentInput, {
+    new Input($target.querySelector('[data-component="comment-input"]'), {
       name: 'comment',
       value: this.state.content,
       onChange: handleCommentInput.bind(this),
     });
 
-    new Button($submitButton, {
-      content: `<img src=${sendIcon} alt="some file" height='22' width='22' />`,
-      onClick: handleSubmit.bind(this),
-      className:
-        'p-2 bg-slate-100 hover:bg-slate-200 ease-in duration-150 rounded-md',
-    });
+    new Button(
+      $target.querySelector('[data-component="comment-submit-button"]'),
+      {
+        content: `<img src=${sendIcon} alt="some file" height='22' width='22' />`,
+        onClick: handleSubmit.bind(this),
+        className:
+          'p-2 bg-slate-100 hover:bg-slate-200 ease-in duration-150 rounded-md',
+      }
+    );
   }
 
   handleCommentInput(content) {
-    this.setState({ content });
+    this.state.content = content;
   }
 
   async handleSubmit() {

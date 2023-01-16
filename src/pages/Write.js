@@ -22,11 +22,11 @@ class Write extends Page {
   }
 
   handleTitleChange(title) {
-    this.setState({ title });
+    this.state.title = title;
   }
 
   handleContentChange(content) {
-    this.setState({ content });
+    this.state.content = content;
   }
 
   async handleRandomImageSelect() {
