@@ -49,7 +49,7 @@ class Write extends Page {
 
   template() {
     return `
-      <div class='w-full flex flex-col items-center gap-5'>
+      <div class='w-full flex flex-col items-center gap-5 mb-5'>
         <div class='max-w-main w-full px-2 h-16 flex justify-between items-center' data-component="header-container"></div>
         <div class='max-w-main w-full px-3' data-component="input-image"></div>
         <div class='max-w-main w-full px-3' data-component="input-title"></div>

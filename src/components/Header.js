@@ -13,17 +13,17 @@ export default class Header extends Component {
     navigateTo('/');
   }
 
-  setEvent() {
-    this.addEvent('click', '[data-component="header-title"]', ({ target }) => {
-      this.handleNavigateToDashboard();
-    });
-  }
-
   template() {
     return `
       <div data-component="header-back-button"></div>
       <div data-component="header-title"></div>
     `;
+  }
+
+  setEvent() {
+    this.addEvent('click', '[data-component="header-title"]', () => {
+      this.handleNavigateToDashboard();
+    });
   }
 
   mounted() {
